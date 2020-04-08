@@ -1,0 +1,17 @@
+sdk-version: 0.13.55
+name: templateStatefulApplication
+source: daml
+init-script: Main:initialize
+parties:
+  - Alice
+  - Bob
+version: 0.0.1
+dependencies:
+  - daml-prim
+  - daml-stdlib
+  - daml-script
+codegen:
+  scala:
+    package-prefix: com.knoldus
+    output-directory: scala-codegen/src/main/scala
+    verbosity: 2
