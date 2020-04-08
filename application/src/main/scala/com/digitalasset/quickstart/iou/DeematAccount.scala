@@ -26,7 +26,7 @@ import com.digitalasset.ledger.client.binding.{Primitive => P}
 import com.knoldus.{Main => M}
 // </doc-ref:imports>
 
-object IouMain extends App with StrictLogging {
+object DeematAccount extends App with StrictLogging {
 
   if (args.length != 2) {
     logger.error("Usage: LEDGER_HOST LEDGER_PORT")
@@ -36,12 +36,12 @@ object IouMain extends App with StrictLogging {
   private val ledgerHost = args(0)
   private val ledgerPort = args(1).toInt
 
-  // <doc-ref:issuer-definition>
+  // <doc-ref:broker-definition>
   private val broker = P.Party("Broker")
-  // </doc-ref:issuer-definition>
-  // <doc-ref:new-owner-definition>
+  // </doc-ref:broker-definition>
+  // <doc-ref:-definition>
   private val upanshu = P.Party("Upanshu")
-  // </doc-ref:new-owner-definition>
+  // </doc-ref:owner-definition>
 
   private val asys = ActorSystem()
   private val amat = Materializer(asys)
