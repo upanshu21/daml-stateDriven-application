@@ -26,7 +26,7 @@ import com.digitalasset.ledger.client.binding.{Primitive => P}
 import com.knoldus.{Main => M}
 // </doc-ref:imports>
 
-object DeematAccount extends App with StrictLogging {
+object DematAccount extends App with StrictLogging {
 
   if (args.length != 2) {
     logger.error("Usage: LEDGER_HOST LEDGER_PORT")
@@ -77,10 +77,10 @@ object DeematAccount extends App with StrictLogging {
 
   private val offset0F: Future[LedgerOffset] = clientUtilF.flatMap(_.ledgerEnd)
 
-  private val issuerWorkflowId: WorkflowId = workflowIdFromParty(broker)
-  private val newOwnerWorkflowId: WorkflowId = workflowIdFromParty(upanshu)
+  private val brokerWorkflowId: WorkflowId = workflowIdFromParty(broker)
+  private val OwnerWorkflowId: WorkflowId = workflowIdFromParty(upanshu)
 
-
+  //creating template Demat instance
   val demat = M.Deemat(
     owner = broker,
     broker = broker,
@@ -94,37 +94,35 @@ object DeematAccount extends App with StrictLogging {
     offset0 <- offset0F
     _ = logger.info(s"Client API initialization completed, Ledger ID: ${clientUtil.toString}")
 
-    // <doc-ref:submit-iou-create-command>
+    // <doc-ref:submit-demat-create-command>
     createCmd = demat.create
-    _ <- clientUtil.submitCommand(broker, issuerWorkflowId, createCmd)
+    _ <- clientUtil.submitCommand(broker, brokerWorkflowId, createCmd)
     _ = logger.info(s"$broker created account: $demat")
     _ = logger.info(s"$broker sent create command: $createCmd")
-    // </doc-ref:submit-iou-create-command>
-
+    // </doc-ref:submit-demat-create-command>
     tx0 <- clientUtil.nextTransaction(broker, offset0)(amat)
     _ = logger.info(s"$broker received transaction: $tx0")
     dematId <- toFuture(decodeCreated[M.Deemat](tx0))
     _ = logger.info(s"$broker received contract: $dematId")
 
-    offset1 <- clientUtil.ledgerEnd
 
-    // <doc-ref:iou-exercise-transfer-cmd>
+    offset1 <- clientUtil.ledgerEnd
+    // <doc-ref:demat-exercise-authorization-cmd>
     exerciseCmd = dematId.contractId.exerciseAuthorizeInvestor(actor = broker, investor = upanshu, updated_Token = 100)
-    // </doc-ref:iou-exercise-transfer-cmd>
-    _ <- clientUtil.submitCommand(broker, issuerWorkflowId, exerciseCmd)
+    // </doc-ref:demat-exercise-authorization-cmd>
+    _ <- clientUtil.submitCommand(broker, brokerWorkflowId, exerciseCmd)
     _ = logger.info(s"$broker sent exercise command: $exerciseCmd")
     _ = logger.info(s"$broker transferred IOU: $dematId to: $broker")
 
-
     tx1 <- clientUtil.nextTransaction(broker, offset1)(amat)
     _ = logger.info(s"$broker received final transaction: $tx1")
-    deematContract <- toFuture(decodeAllCreated[M.Deemat](tx1).headOption)
-    _ = logger.info(s"$broker received confirmation for the IOU Transfer: $deematContract")
+    dematContract <- toFuture(decodeAllCreated[M.Deemat](tx1).headOption)
+    _ = logger.info(s"$broker received confirmation for the IOU Transfer: $dematContract")
 
+    //exercise submit request share choice to ledger
     offset2 <- clientUtil.ledgerEnd
-
-    exerciseCommand = deematContract.contractId.exerciseRequestShare(actor = upanshu, requestQuantity = 10)
-    _ <- clientUtil.submitCommand(upanshu, newOwnerWorkflowId, exerciseCommand)
+    exerciseCommand = dematContract.contractId.exerciseRequestShare(actor = upanshu, requestQuantity = 10)
+    _ <- clientUtil.submitCommand(upanshu, OwnerWorkflowId, exerciseCommand)
     _ = logger.info(s"$upanshu sent exercise Request share: $exerciseCommand")
     _ = logger.info(s"$upanshu request sent: $dematId to: $upanshu")
 
