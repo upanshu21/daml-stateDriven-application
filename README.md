@@ -49,8 +49,9 @@ Scenario results
 
 <h2>Run Application</h2>
 ```
-sbt "application/runMain com.knoldus.demat.DematAccount localhost 6865"
+sbt "application/runMain com.knoldus.demat.DematAccount localhost 6865" 
 ```
+</br>
 
 <h2>Scala-Binding log </h2>
 
