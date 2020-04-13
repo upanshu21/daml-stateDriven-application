@@ -3,8 +3,8 @@ name: templateStatefulApplication
 source: daml
 init-script: Main:initialize
 parties:
-  - Alice
-  - Bob
+  - Broker
+  - Upanshu
 version: 0.0.1
 dependencies:
   - daml-prim

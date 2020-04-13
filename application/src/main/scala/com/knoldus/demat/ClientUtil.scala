@@ -1,6 +1,6 @@
 // Copyright (c) 2020 The DAML Authors. All rights reserved.
 // SPDX-License-Identifier: Apache-2.0
-package com.digitalasset.quickstart.iou
+package com.knoldus.demat
 
 import java.util.UUID
 
@@ -17,7 +17,7 @@ import com.digitalasset.ledger.api.v1.transaction.Transaction
 import com.digitalasset.ledger.api.v1.transaction_filter.{Filters, TransactionFilter}
 import com.digitalasset.ledger.client.LedgerClient
 import com.digitalasset.ledger.client.binding.{Primitive => P}
-import com.digitalasset.quickstart.iou.FutureUtil.toFuture
+import com.knoldus.demat.FutureUtil.toFuture
 import com.google.protobuf.empty.Empty
 
 import scalaz.syntax.tag._

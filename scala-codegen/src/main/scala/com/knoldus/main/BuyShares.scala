@@ -6,30 +6,30 @@ import _root_.com.digitalasset.ledger.client.{binding=>$u0020lfdomainapi}
 import _root_.com.digitalasset.ledger.api.v1.{value=>$u0020rpcvalue}
 package com.knoldus {
   package Main {
-    final case class BuyShares(quantity: ` lfdomainapi`.Primitive.Int64, toDeematId: ` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Deemat]) extends ` lfdomainapi`.ValueRef
+    final case class BuyShares(quantity: ` lfdomainapi`.Primitive.Int64, toDematId: ` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Demat]) extends ` lfdomainapi`.ValueRef
 
-    object BuyShares extends ` lfdomainapi`.ValueRefCompanion with _root_.scala.Function2[` lfdomainapi`.Primitive.Int64, ` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Deemat], _root_.com.knoldus.Main.BuyShares] {
+    object BuyShares extends ` lfdomainapi`.ValueRefCompanion with _root_.scala.Function2[` lfdomainapi`.Primitive.Int64, ` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Demat], _root_.com.knoldus.Main.BuyShares] {
       import _root_.scala.language.higherKinds;
       trait view[` C`[_]] extends ` lfdomainapi`.encoding.RecordView[` C`, view] { $u0020view =>
         val quantity: ` C`[` lfdomainapi`.Primitive.Int64];
-        val toDeematId: ` C`[` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Deemat]];
+        val toDematId: ` C`[` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Demat]];
         final override def hoist[` D`[_]](` f` : _root_.scalaz.~>[` C`, ` D`]): view[` D`] = {
           final class $anon extends _root_.scala.AnyRef with view[` D`] {
             override val quantity = ` f`(` view`.quantity);
-            override val toDeematId = ` f`(` view`.toDeematId)
+            override val toDematId = ` f`(` view`.toDematId)
           };
           new $anon()
         }
       };
       implicit val `BuyShares Value`: ` lfdomainapi`.Value[_root_.com.knoldus.Main.BuyShares] = {
         final class $anon extends this.`Value ValueRef`[_root_.com.knoldus.Main.BuyShares] {
-          override def write(value: _root_.com.knoldus.Main.BuyShares): ` rpcvalue`.Value.Sum = ` record`(scala.Tuple2("quantity", ` lfdomainapi`.Value.encode(value.quantity)), scala.Tuple2("toDeematId", ` lfdomainapi`.Value.encode(value.toDeematId)));
+          override def write(value: _root_.com.knoldus.Main.BuyShares): ` rpcvalue`.Value.Sum = ` record`(scala.Tuple2("quantity", ` lfdomainapi`.Value.encode(value.quantity)), scala.Tuple2("toDematId", ` lfdomainapi`.Value.encode(value.toDematId)));
           override def read(argValue: ` rpcvalue`.Value.Sum): _root_.scala.Option[_root_.com.knoldus.Main.BuyShares] = argValue.record.flatMap(((` r` ) => if (` r`.fields.length.==(2))
             ` r`.fields(0) match {
               case ` rpcvalue`.RecordField((""| "quantity"), _root_.scala.Some(zv0)) => (` lfdomainapi`.Value.decode[` lfdomainapi`.Primitive.Int64](zv0) match {
                 case _root_.scala.Some(quantity) => (` r`.fields(1) match {
-                  case ` rpcvalue`.RecordField((""| "toDeematId"), _root_.scala.Some(zv1)) => (` lfdomainapi`.Value.decode[` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Deemat]](zv1) match {
-                    case _root_.scala.Some(toDeematId) => Some(BuyShares(quantity, toDeematId))
+                  case ` rpcvalue`.RecordField((""| "toDematId"), _root_.scala.Some(zv1)) => (` lfdomainapi`.Value.decode[` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Demat]](zv1) match {
+                    case _root_.scala.Some(toDematId) => Some(BuyShares(quantity, toDematId))
                     case _root_.scala.None => _root_.scala.None
                   })
                   case _ => _root_.scala.None
@@ -49,13 +49,13 @@ package com.knoldus {
           override def encoding(lte: ` lfdomainapi`.encoding.LfTypeEncoding): lte.Out[_root_.com.knoldus.Main.BuyShares] = {
             object `view ` extends view[lte.Field] {
               val quantity = lte.field("quantity", ` lfdomainapi`.encoding.LfEncodable.encoding[` lfdomainapi`.Primitive.Int64](lte));
-              val toDeematId = lte.field("toDeematId", ` lfdomainapi`.encoding.LfEncodable.encoding[` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Deemat]](lte))
+              val toDematId = lte.field("toDematId", ` lfdomainapi`.encoding.LfEncodable.encoding[` lfdomainapi`.Primitive.ContractId[com.knoldus.Main.Demat]](lte))
             };
             {
-              val `recordFields `: lte.RecordFields[_root_.com.knoldus.Main.BuyShares] = lte.RecordFields.xmapN(lte.fields(`view `.quantity), lte.fields(`view `.toDeematId))({
-                case scala.Tuple2(quantity, toDeematId) => _root_.com.knoldus.Main.BuyShares(quantity, toDeematId)
+              val `recordFields `: lte.RecordFields[_root_.com.knoldus.Main.BuyShares] = lte.RecordFields.xmapN(lte.fields(`view `.quantity), lte.fields(`view `.toDematId))({
+                case scala.Tuple2(quantity, toDematId) => _root_.com.knoldus.Main.BuyShares(quantity, toDematId)
               })({
-                case _root_.com.knoldus.Main.BuyShares(quantity, toDeematId) => scala.Tuple2(quantity, toDeematId)
+                case _root_.com.knoldus.Main.BuyShares(quantity, toDematId) => scala.Tuple2(quantity, toDematId)
               });
               lte.record(` dataTypeId`, `recordFields `)
             }
