@@ -48,9 +48,11 @@ Scenario results
 4. Checking by Asserting expecting User account balance to Broker account balance.</br>
 
 <h2>Run Application</h2>
+
 ```
 sbt "application/runMain com.knoldus.demat.DematAccount localhost 6865" 
 ```
+
 </br>
 
 <h2>Scala-Binding log </h2>
